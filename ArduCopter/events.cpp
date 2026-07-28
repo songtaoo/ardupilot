@@ -454,6 +454,7 @@ bool Copter::should_disarm_on_failsafe() {
     switch (flightmode->mode_number()) {
         case Mode::Number::STABILIZE:
         case Mode::Number::ACRO:
+        case Mode::Number::BFACRO:
             // if throttle is zero OR vehicle is landed disarm motors
             return ap.throttle_zero || ap.land_complete;
         case Mode::Number::AUTO:
@@ -508,4 +509,3 @@ void Copter::do_failsafe_action(FailsafeAction action, ModeReason reason){
     }
 #endif
 }
-

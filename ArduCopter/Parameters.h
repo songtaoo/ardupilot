@@ -552,7 +552,7 @@ public:
     // developer options
     AP_Int32 dev_options;
 
-#if MODE_ACRO_ENABLED == ENABLED
+#if MODE_ACRO_ENABLED == ENABLED || MODE_BFACRO_ENABLED == ENABLED
     AP_Float acro_thr_mid;
 #endif
 
@@ -639,17 +639,17 @@ public:
 #endif
 
     // command model parameters
-#if MODE_ACRO_ENABLED == ENABLED || MODE_SPORT_ENABLED == ENABLED
+#if MODE_ACRO_ENABLED == ENABLED || MODE_BFACRO_ENABLED == ENABLED || MODE_SPORT_ENABLED == ENABLED
     AC_CommandModel command_model_acro_rp;
 #endif
 
-#if MODE_ACRO_ENABLED == ENABLED || MODE_DRIFT_ENABLED == ENABLED
+#if MODE_ACRO_ENABLED == ENABLED || MODE_BFACRO_ENABLED == ENABLED || MODE_DRIFT_ENABLED == ENABLED
     AC_CommandModel command_model_acro_y;
 #endif
 
     AC_CommandModel command_model_pilot;
 
-#if MODE_ACRO_ENABLED == ENABLED
+#if MODE_ACRO_ENABLED == ENABLED || MODE_BFACRO_ENABLED == ENABLED
     AP_Int8 acro_options;
 #endif
 

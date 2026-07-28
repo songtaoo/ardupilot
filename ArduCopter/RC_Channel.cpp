@@ -586,6 +586,9 @@ bool RC_Channel_Copter::do_aux_function(const aux_func_t ch_option, const AuxSwi
 #if MODE_ACRO_ENABLED == ENABLED && FRAME_CONFIG != HELI_FRAME
             copter.mode_acro.air_mode_aux_changed();
 #endif
+#if MODE_BFACRO_ENABLED == ENABLED
+            copter.mode_bfacro.air_mode_aux_changed();
+#endif
             break;
 
         case AUX_FUNC::FORCEFLYING:

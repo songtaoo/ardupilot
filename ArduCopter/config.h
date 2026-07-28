@@ -163,6 +163,12 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+// BF Acro - Betaflight-style acrobatic mode
+#ifndef MODE_BFACRO_ENABLED
+# define MODE_BFACRO_ENABLED ENABLED
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
 // Auto mode - allows vehicle to trace waypoints and perform automated actions
 #ifndef MODE_AUTO_ENABLED
 # define MODE_AUTO_ENABLED ENABLED

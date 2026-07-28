@@ -95,6 +95,7 @@ public:
         AUTOROTATE =   26,  // Autonomous autorotation
         AUTO_RTL =     27,  // Auto RTL, this is not a true mode, AUTO will report as this mode if entered to perform a DO_LAND_START Landing sequence
         TURTLE =       28,  // Flip over after crash
+        BFACRO =       29,  // Betaflight-style body-frame angular rate control with manual throttle
 
         // Mode number 127 reserved for the "drone show mode" in the Skybrush
         // fork at https://github.com/skybrush-io/ardupilot
@@ -421,6 +422,45 @@ protected:
     float throttle_hover() const override;
 
 private:
+    bool disable_air_mode_reset;
+};
+#endif
+
+#if MODE_BFACRO_ENABLED == ENABLED
+class ModeBFAcro : public Mode {
+
+public:
+    using Mode::Mode;
+
+    Number mode_number() const override { return Number::BFACRO; }
+
+    enum class BFAcroOptions {
+        AIR_MODE = 1 << 0,
+    };
+
+    void run() override;
+    bool init(bool ignore_checks) override;
+    void exit() override;
+
+    bool requires_GPS() const override { return false; }
+    bool has_manual_throttle() const override { return true; }
+    bool allows_arming(AP_Arming::Method method) const override { return true; }
+    bool is_autopilot() const override { return false; }
+    bool allows_save_trim() const override { return true; }
+    bool allows_flip() const override { return true; }
+
+    void air_mode_aux_changed();
+
+protected:
+    const char *name() const override { return "BFACRO"; }
+    const char *name4() const override { return "BFAC"; }
+
+    float throttle_hover() const override;
+
+private:
+    void get_pilot_desired_rates(float &roll_out, float &pitch_out, float &yaw_out) const;
+    float apply_betaflight_expo(float input, float expo) const;
+
     bool disable_air_mode_reset;
 };
 #endif
